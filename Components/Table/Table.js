@@ -2,8 +2,15 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Square from '../Square/Square'
+import Row from '../Row/Row'
 
 export default function Table() {
+
+  const [table, setTable] = useState([
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+  ])
 
   const winningConditions = [
     [0, 1, 2],
@@ -74,6 +81,11 @@ export default function Table() {
       flex: 0.5,
       width: '90%',
     }}>
+
+        {/* {table.map((row, i), () => {
+          return <Row row={row} i={i} />
+        })} */}
+
         <View style={{ 
           flex: 1,
           flexDirection: 'row',
