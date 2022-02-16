@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-export default function ResetButton() {
-
-    const pressRestartGame = () => {
-        
-    }
+export default function ResetButton({ pressRestartGame }) {
 
     return (
         <TouchableOpacity style={{

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-export default function Table() {
+export default function Header({ XScore, MScore, tieScore }) {
     return (
         <View style={{
             flex: 0.1,
@@ -10,13 +10,13 @@ export default function Table() {
             width: '100%'
         }}>
             <View>
-                <Text style={textStyle.container}>X Score</Text>
+                <Text style={textStyle.container}>X: {XScore}</Text>
             </View>
             <View>
-                <Text style={textStyle.container}>Tie Score</Text>
+                <Text style={textStyle.container}>Tie: {tieScore}</Text>
             </View>
             <View>
-                <Text style={textStyle.container}>M Score</Text>
+                <Text style={textStyle.container}>M: {MScore}</Text>
             </View>
         </View>
     )

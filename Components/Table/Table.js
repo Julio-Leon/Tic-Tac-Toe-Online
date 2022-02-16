@@ -4,13 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Square from '../Square/Square'
 import Row from '../Row/Row'
 
-export default function Table() {
-
-  const [table, setTable] = useState([
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-  ])
+export default function Table({ movesCounter, setMovesCounter, table, setTable, pressRestartGame, XScore, setXScore, MScore, setMScore, tieScore, setTieScore }) {
 
   const winningConditions = [
     [0, 1, 2],
@@ -44,36 +38,30 @@ export default function Table() {
   }
 
   const checkForWin = () => {
-    winningConditions.forEach(condition, () => {
+    winningConditions.forEach(condition => {
       let passed = true
-      condition.forEach(term, () => {
+      condition.forEach(term => {
         if (!currentPlayer.moves.includes(term)) {
           passed = false
         }
       })
       if (passed) {
 
-        // FROM INTERNTET //
-        Alert.alert(
-          "Alert Title",
-          "My Alert Msg",
-          [
-            {
-              text: "Ask me later",
-              onPress: () => console.log("Ask me later pressed")
-            },
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel"
-            },
-            { text: "OK", onPress: () => console.log("OK Pressed") }
-          ]
-        );
-        // FROM INTERNET //
+        pressRestartGame()
 
+        if (currentPlayer.id === 'X') {
+          setXScore(XScore + 1)
+        } else {
+          setMScore(MScore + 1)
+        }
       }
     })
+
+    if (movesCounter === 9) {
+      pressRestartGame()
+      setTieScore(TieScore + 1)
+    }
+
   }
 
   return (
@@ -81,10 +69,6 @@ export default function Table() {
       flex: 0.5,
       width: '90%',
     }}>
-
-        {/* {table.map((row, i), () => {
-          return <Row row={row} i={i} />
-        })} */}
 
         <View style={{ 
           flex: 1,
@@ -97,18 +81,27 @@ export default function Table() {
             currentPlayer={currentPlayer} 
             setCurrentPlayer={setCurrentPlayer}
             changePlayer={changePlayer}
+            table={table}
+            setTable={setTable}
+            checkForWin={checkForWin}
           />
           <Square 
             squareId={1} 
             currentPlayer={currentPlayer} 
             setCurrentPlayer={setCurrentPlayer}
             changePlayer={changePlayer}
+            table={table}
+            setTable={setTable}
+            checkForWin={checkForWin}
           />
           <Square 
             squareId={2} 
             currentPlayer={currentPlayer} 
             setCurrentPlayer={setCurrentPlayer}
             changePlayer={changePlayer}
+            table={table}
+            setTable={setTable}
+            checkForWin={checkForWin}
           />
         </View>
         <View style={{ 
@@ -122,18 +115,27 @@ export default function Table() {
             currentPlayer={currentPlayer} 
             setCurrentPlayer={setCurrentPlayer}
             changePlayer={changePlayer}
+            table={table}
+            setTable={setTable}
+            checkForWin={checkForWin}
           />
           <Square 
             squareId={4} 
             currentPlayer={currentPlayer} 
             setCurrentPlayer={setCurrentPlayer}
             changePlayer={changePlayer}
+            table={table}
+            setTable={setTable}
+            checkForWin={checkForWin}
           />
           <Square 
             squareId={5} 
             currentPlayer={currentPlayer} 
             setCurrentPlayer={setCurrentPlayer}
             changePlayer={changePlayer}
+            table={table}
+            setTable={setTable}
+            checkForWin={checkForWin}
           />
         </View>
         <View style={{ 
@@ -147,18 +149,27 @@ export default function Table() {
             currentPlayer={currentPlayer} 
             setCurrentPlayer={setCurrentPlayer}
             changePlayer={changePlayer}
+            table={table}
+            setTable={setTable}
+            checkForWin={checkForWin}
           />
           <Square 
             squareId={7} 
             currentPlayer={currentPlayer} 
             setCurrentPlayer={setCurrentPlayer}
             changePlayer={changePlayer}
+            table={table}
+            setTable={setTable}
+            checkForWin={checkForWin}
           />
           <Square 
             squareId={8} 
             currentPlayer={currentPlayer} 
             setCurrentPlayer={setCurrentPlayer}
             changePlayer={changePlayer}
+            table={table}
+            setTable={setTable}
+            checkForWin={checkForWin}
           />
         </View>
       </View>
