@@ -6,7 +6,7 @@ import ResetButton from './Components/ResetButton/ResetButton'
 
 export default function App() {
 
-  const [table, setTable] = useState(['', '', '', '', '', '', '', '', ''])
+  const [table, setTable] = useState([['', '', ''], ['', '', ''], ['', '', '']])
 
   const [XScore, setXScore] = useState(0)
   const [MScore, setMScore] = useState(0)
@@ -15,7 +15,7 @@ export default function App() {
   const [movesCounter, setMovesCounter] = useState(0)
 
   const pressRestartGame = () => {
-    setTable(table.map((spot) => ''))
+    setTable([['', '', ''], ['', '', ''], ['', '', '']])
     setMovesCounter(0)
   }
 

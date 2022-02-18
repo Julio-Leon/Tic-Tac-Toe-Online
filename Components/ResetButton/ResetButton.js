@@ -3,6 +3,8 @@ import { Text, TouchableOpacity } from 'react-native';
 
 export default function ResetButton({ pressRestartGame }) {
 
+    
+
     return (
         <TouchableOpacity style={{
             flex: 0.05,

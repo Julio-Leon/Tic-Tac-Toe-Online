@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-export default function Table({ squareId, currentPlayer, setCurrentPlayer, changePlayer, table, setTable, checkForWin }) {
+export default function Table({ block, i, j, currentPlayer, changePlayer, table, setTable, checkForWin, playerXMoves, setPlayerXMoves, playerMMoves, setPlayerMMoves }) {
 
-    const [value, setValue] = useState('')
+    const pos = [i, j]
 
     const makeMove = () => {
-        if (table[squareId] !== '') return
+        if (block !== '') return
 
-        setCurrentPlayer({
-            id: currentPlayer.id,
-            moves: [...currentPlayer.moves, squareId]
+        const newTable = table.map((newRow, ii) => {
+            return newRow.map((newBlock, jj) => {
+                return i === ii && j === jj ? currentPlayer : newBlock
+            })
         })
-        setValue(currentPlayer.id)
-        changePlayer()
 
-        const newTable = table.map((spot, i) => {
-            return i === squareId ? currentPlayer.id : spot
-        })
+        if (currentPlayer === 'X') {
+            console.log('x moved')
+        }
 
         setTable(newTable)
-
+        changePlayer()
         checkForWin()
     }
 
@@ -32,97 +31,85 @@ export default function Table({ squareId, currentPlayer, setCurrentPlayer, chang
         alignItems: 'center',
     } 
 
-    switch (squareId) {
-        case 0:
-            styler.borderRightWidth = 2
-            styler.borderBottomWidth = 2
-            styler.borderRightStyle = 'solid'
-            styler.borderBottomStyle = 'solid'
-            styler.borderRightColor = 'black'
-            styler.borderBottomColor = 'black'
-            break
+    // Top Row
+    if (pos[0] === 0 && pos[1] === 0) {
+        styler.borderRightWidth = 2
+        styler.borderBottomWidth = 2
+        styler.borderRightStyle = 'solid'
+        styler.borderBottomStyle = 'solid'
+        styler.borderRightColor = 'black'
+        styler.borderBottomColor = 'black'
+    } else if (pos[0] === 0 && pos[1] === 1) {
+        styler.borderLeftWidth = 2
+        styler.borderRightWidth = 2
+        styler.borderBottomWidth = 2
+        styler.borderLeftStyle = 'solid'
+        styler.borderRightStyle = 'solid'
+        styler.borderBottomStyle = 'solid'
+        styler.borderLeftColor = 'black'
+        styler.borderRightColor = 'black'
+        styler.borderBottomColor = 'black'
+    } else if (pos[0] === 0 && pos[1] === 2) {
+        styler.borderLeftWidth = 2
+        styler.borderBottomWidth = 2
+        styler.borderLeftStyle = 'solid'
+        styler.borderBottomStyle = 'solid'
+        styler.borderLeftColor = 'black'
+        styler.borderBottomColor = 'black'
 
-        case 1:
-            styler.borderLeftWidth = 2
-            styler.borderRightWidth = 2
-            styler.borderBottomWidth = 2
-            styler.borderLeftStyle = 'solid'
-            styler.borderRightStyle = 'solid'
-            styler.borderBottomStyle = 'solid'
-            styler.borderLeftColor = 'black'
-            styler.borderRightColor = 'black'
-            styler.borderBottomColor = 'black'
-            break
+    // Middle Row 
+    } else if (pos[0] === 1 && pos[1] === 0) {
+        styler.borderTopWidth = 2
+        styler.borderRightWidth = 2
+        styler.borderBottomWidth = 2
+        styler.borderTopStyle = 'solid'
+        styler.borderRightStyle = 'solid'
+        styler.borderBottomStyle = 'solid'
+        styler.borderTopColor = 'black'
+        styler.borderRightColor = 'black'
+        styler.borderBottomColor = 'black'
+    } else if (pos[0] === 1 && pos[1] === 1) {
+        styler.borderWidth = 2
+        styler.borderStyle = 'solid'
+        styler.borderColor = 'black'
+    } else if (pos[0] === 1 && pos[1] === 2) {
+        styler.borderTopWidth = 2
+        styler.borderLeftWidth = 2
+        styler.borderBottomWidth = 2
+        styler.borderTopStyle = 'solid'
+        styler.borderLeftStyle = 'solid'
+        styler.borderBottomStyle = 'solid'
+        styler.borderTopColor = 'black'
+        styler.borderLeftColor = 'black'
+        styler.borderBottomColor = 'black'
 
-        case 2:
-            styler.borderLeftWidth = 2
-            styler.borderBottomWidth = 2
-            styler.borderLeftStyle = 'solid'
-            styler.borderBottomStyle = 'solid'
-            styler.borderLeftColor = 'black'
-            styler.borderBottomColor = 'black'
-            break
+    // Bottom Row
+    } else if (pos[0] === 2 && pos[1] === 0) {
+        styler.borderRightWidth = 2
+        styler.borderTopWidth = 2
+        styler.borderRightStyle = 'solid'
+        styler.borderTopStyle = 'solid'
+        styler.borderRightColor = 'black'
+        styler.borderTopColor = 'black'
+    } else if (pos[0] === 2 && pos[1] === 1) {
+        styler.borderTopWidth = 2
+        styler.borderRightWidth = 2
+        styler.borderLeftWidth = 2
+        styler.borderTopStyle = 'solid'
+        styler.borderRightStyle = 'solid'
+        styler.borderLeftStyle = 'solid'
+        styler.borderTopColor = 'black'
+        styler.borderRightColor = 'black'
+        styler.borderLeftColor = 'black'
+    } else if (pos[0] === 2 && pos[1] === 2) {
+        styler.borderLeftWidth = 2
+        styler.borderTopWidth = 2
+        styler.borderLeftStyle = 'solid'
+        styler.borderTopStyle = 'solid'
+        styler.borderLeftColor = 'black'
+        styler.borderTopColor = 'black'
+    } 
 
-        case 3:
-            styler.borderTopWidth = 2
-            styler.borderRightWidth = 2
-            styler.borderBottomWidth = 2
-            styler.borderTopStyle = 'solid'
-            styler.borderRightStyle = 'solid'
-            styler.borderBottomStyle = 'solid'
-            styler.borderTopColor = 'black'
-            styler.borderRightColor = 'black'
-            styler.borderBottomColor = 'black'
-            break
-
-        case 4:
-            styler.borderWidth = 2
-            styler.borderStyle = 'solid'
-            styler.borderColor = 'black'
-            break
-
-        case 5:
-            styler.borderTopWidth = 2
-            styler.borderLeftWidth = 2
-            styler.borderBottomWidth = 2
-            styler.borderTopStyle = 'solid'
-            styler.borderLeftStyle = 'solid'
-            styler.borderBottomStyle = 'solid'
-            styler.borderTopColor = 'black'
-            styler.borderLeftColor = 'black'
-            styler.borderBottomColor = 'black'
-            break
-
-        case 6:
-            styler.borderRightWidth = 2
-            styler.borderTopWidth = 2
-            styler.borderRightStyle = 'solid'
-            styler.borderTopStyle = 'solid'
-            styler.borderRightColor = 'black'
-            styler.borderTopColor = 'black'
-            break
-
-        case 7:
-            styler.borderTopWidth = 2
-            styler.borderRightWidth = 2
-            styler.borderLeftWidth = 2
-            styler.borderTopStyle = 'solid'
-            styler.borderRightStyle = 'solid'
-            styler.borderLeftStyle = 'solid'
-            styler.borderTopColor = 'black'
-            styler.borderRightColor = 'black'
-            styler.borderLeftColor = 'black'
-            break
-
-        case 8:
-            styler.borderLeftWidth = 2
-            styler.borderTopWidth = 2
-            styler.borderLeftStyle = 'solid'
-            styler.borderTopStyle = 'solid'
-            styler.borderLeftColor = 'black'
-            styler.borderTopColor = 'black'
-            break
-    }
 
     
 
@@ -136,7 +123,7 @@ export default function Table({ squareId, currentPlayer, setCurrentPlayer, chang
                     fontSize: 50
                 }}
             >
-                {table[squareId]}
+                {block}
             </Text>
         </TouchableOpacity>
     )

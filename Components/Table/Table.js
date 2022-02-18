@@ -6,61 +6,35 @@ import Row from '../Row/Row'
 
 export default function Table({ movesCounter, setMovesCounter, table, setTable, pressRestartGame, XScore, setXScore, MScore, setMScore, tieScore, setTieScore }) {
 
+  // console.log('Table')
+
   const winningConditions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8]
+    [[0, 0], [0, 1], [0, 2]],
+    [[1, 0], [1, 1], [1, 2]],
+    [[2, 0], [2, 1], [2, 2]],
+    [[0, 0], [1, 1], [2, 2]],
+    [[0, 0], [1, 1], [2, 0]],
+    [[0, 0], [1, 0], [2, 0]],
+    [[0, 1], [1, 1], [2, 1]],
+    [[0, 2], [1, 2], [2, 2]]
   ]
 
-  const [playerX, setPlayerX] = useState({
-    id: 'X',
-    moves: []
-  })
+  const [playerXMoves, setPlayerXMoves] = useState([])
+  const [playerMMoves, setPlayerMMoves] = useState([])
 
-  const [playerM, setPlayerM] = useState({
-    id: 'M',
-    moves: []
-  })
-
-  const [currentPlayer, setCurrentPlayer] = useState(playerX)
+  const [currentPlayer, setCurrentPlayer] = useState('X')
 
   const changePlayer = () => {
-    if (currentPlayer.id === 'X') {
-      setCurrentPlayer(playerM)
+    if (currentPlayer === 'X') {
+      setCurrentPlayer('M')
     } else {
-      setCurrentPlayer(playerX)
+      setCurrentPlayer('X')
     }
   }
 
   const checkForWin = () => {
-    winningConditions.forEach(condition => {
-      let passed = true
-      condition.forEach(term => {
-        if (!currentPlayer.moves.includes(term)) {
-          passed = false
-        }
-      })
-      if (passed) {
-
-        pressRestartGame()
-
-        if (currentPlayer.id === 'X') {
-          setXScore(XScore + 1)
-        } else {
-          setMScore(MScore + 1)
-        }
-      }
-    })
-
-    if (movesCounter === 9) {
-      pressRestartGame()
-      setTieScore(TieScore + 1)
-    }
+    
+    
 
   }
 
@@ -70,7 +44,28 @@ export default function Table({ movesCounter, setMovesCounter, table, setTable, 
       width: '90%',
     }}>
 
-        <View style={{ 
+    {
+      table.map((row, i) => {
+        return (
+          <Row 
+            key={i} 
+            row={row} 
+            i={i} 
+            currentPlayer={currentPlayer}
+            changePlayer={changePlayer} 
+            table={table} 
+            setTable={setTable} 
+            checkForWin={checkForWin}
+            playerMMoves={playerMMoves}
+            setPlayerXMoves={setPlayerXMoves}
+            playerMMoves={playerMMoves}
+            setPlayerMMoves={setPlayerMMoves}
+          />
+        )
+      })
+    }
+
+        {/* <View style={{ 
           flex: 1,
           flexDirection: 'row',
           alignItems: 'flex-start',
@@ -171,7 +166,7 @@ export default function Table({ movesCounter, setMovesCounter, table, setTable, 
             setTable={setTable}
             checkForWin={checkForWin}
           />
-        </View>
+        </View> */}
       </View>
   );
 }
