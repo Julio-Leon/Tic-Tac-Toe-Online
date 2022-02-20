@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import Square from '../Square/Square'
 
-export default function Row({ row, i, currentPlayer, changePlayer, table, setTable, checkForWin, playerXMoves, setPlayerXMoves, playerMMoves, setPlayerMMoves }) {
+export default function Row({ row, i, makeMove, playerWon, makingMove, setMakingMove }) {
 
     // console.log(row, i)
 
@@ -19,16 +19,11 @@ export default function Row({ row, i, currentPlayer, changePlayer, table, setTab
                         key={(i, j)} 
                         block={block} 
                         i={i}
-                        j={j} 
-                        currentPlayer={currentPlayer}
-                        changePlayer={changePlayer} 
-                        table={table} 
-                        setTable={setTable} 
-                        checkForWin={checkForWin}
-                        playerXMoves={playerXMoves}
-                        setPlayerXMoves={setPlayerXMoves}
-                        playerMMoves={playerMMoves}
-                        setPlayerMMoves={setPlayerMMoves}
+                        j={j}
+                        makeMove={makeMove}
+                        playerWon={playerWon}
+                        makingMove={makingMove}
+                        setMakingMove={setMakingMove}
                     />
                 )
             })}

@@ -1,31 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-export default function Table({ block, i, j, currentPlayer, changePlayer, table, setTable, checkForWin, playerXMoves, setPlayerXMoves, playerMMoves, setPlayerMMoves }) {
+export default function Table({ block, i, j, makeMove, playerWon, makingMove, setMakingMove }) {
 
     const pos = [i, j]
 
-    const makeMove = () => {
-        if (block !== '') return
-
-        const newTable = table.map((newRow, ii) => {
-            return newRow.map((newBlock, jj) => {
-                return i === ii && j === jj ? currentPlayer : newBlock
-            })
-        })
-
-        if (currentPlayer === 'X') {
-            console.log('x moved')
-        }
-
-        setTable(newTable)
-        changePlayer()
-        checkForWin()
-    }
-
     let styler = {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: playerWon ? 'blue' : 'white',
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -110,13 +92,12 @@ export default function Table({ block, i, j, currentPlayer, changePlayer, table,
         styler.borderTopColor = 'black'
     } 
 
-
-    
-
     return (
         <TouchableOpacity 
             style={styler}
-            onPress={makeMove}
+            onPress={() => {
+                setMakingMove(true)
+            }}
         >
             <Text
                 style={{
