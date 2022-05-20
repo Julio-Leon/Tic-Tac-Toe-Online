@@ -7,7 +7,6 @@ export default function Table({ block, i, j, makeMove, playerWon, makingMove, se
 
     let styler = {
         flex: 1,
-        backgroundColor: playerWon ? 'blue' : 'white',
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -96,7 +95,7 @@ export default function Table({ block, i, j, makeMove, playerWon, makingMove, se
         <TouchableOpacity 
             style={styler}
             onPress={() => {
-                setMakingMove(true)
+                makeMove(block, i, j)
             }}
         >
             <Text

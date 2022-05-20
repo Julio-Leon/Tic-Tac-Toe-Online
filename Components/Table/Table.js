@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Square from '../Square/Square'
 import Row from '../Row/Row'
 
-export default function Table({ movesCounter, setMovesCounter, table, setTable, pressRestartGame, XScore, setXScore, MScore, setMScore, tieScore, setTieScore }) {
+export default function Table({ movesCounter, setMovesCounter, table, setTable, pressRestartGame, XScore, setXScore, MScore, setMScore, tieScore, setTieScore, playerWon, setPlayerWon, currentPlayer, setCurrentPlayer, playerXMoves, setPlayerXMoves, playerMMoves, setPlayerMMoves }) {
 
   // console.log('Table')
 
@@ -23,16 +23,6 @@ export default function Table({ movesCounter, setMovesCounter, table, setTable, 
 
   let winner
 
-  const [playerXMoves, setPlayerXMoves] = useState([])
-  const [playerMMoves, setPlayerMMoves] = useState([])
-
-  // const xMoves = []
-  // const mMoves = []
-
-  const [currentPlayer, setCurrentPlayer] = useState('X')
-
-  const [playerWon, setPlayerWon] = useState(false)
-
   const changePlayer = () => {
     if (currentPlayer === 'X') {
       setCurrentPlayer('M')
@@ -41,23 +31,19 @@ export default function Table({ movesCounter, setMovesCounter, table, setTable, 
     }
   }
 
-  const checkIfInPlayerArray = (move) => {
-    return currentPlayer === 'X' ? playerXMoves.find(playerMove => {
-      return move[0] === playerMove[0] && move[1] === playerMove[1]
-    }) : playerMMoves.find(playerMove => {
+  const checkIfInPlayerArray = (move, tempPlayerArray) => {
+    return tempPlayerArray.find(playerMove => {
       return move[0] === playerMove[0] && move[1] === playerMove[1]
     })
   }
 
-  const checkForWin = () => {
+  const checkForWin = (tempPlayerArray) => {
 
     let passed = false
 
-    // console.log(playerXMoves.length)
-
     for (let i = 0; i < winningConditions.length; i++) {
       passed = winningConditions[i].every(part => {
-        return checkIfInPlayerArray([part[0], part[1]])
+        return checkIfInPlayerArray([part[0], part[1]], tempPlayerArray)
       })
       setPlayerWon(passed)
       if (passed) break
@@ -76,23 +62,27 @@ export default function Table({ movesCounter, setMovesCounter, table, setTable, 
     })
 
     if (currentPlayer === 'X') {
-        setPlayerXMoves([...playerXMoves, [i, j]])
+      if (checkForWin([...playerXMoves, [i, j]])) {
+        setPlayerWon('X')
+      }
+      setPlayerXMoves([...playerXMoves, [i, j]])
     } else {
+        if (checkForWin([...playerMMoves, [i, j]])) {
+          setPlayerWon('M')
+        }
         setPlayerMMoves([...playerMMoves, [i, j]])
     }
 
-    if (checkForWin()) {
-        setPlayerWon(true)
-    }
     setTable(newTable)
     changePlayer() 
+
 }
 
   return (
     <View style={{ 
       flex: 0.5,
       width: '90%',
-      backgroundColor: playerWon ? 'blue' : 'white'
+      backgroundColor: playerWon==='X' ? 'blue' : playerWon==='M' ? 'green' : 'white'
     }}>
 
     {

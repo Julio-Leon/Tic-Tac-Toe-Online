@@ -14,9 +14,20 @@ export default function App() {
 
   const [movesCounter, setMovesCounter] = useState(0)
 
+  const [playerWon, setPlayerWon] = useState(false)
+
+  const [currentPlayer, setCurrentPlayer] = useState('X')
+
+  const [playerXMoves, setPlayerXMoves] = useState([])
+  const [playerMMoves, setPlayerMMoves] = useState([])
+
   const pressRestartGame = () => {
     setTable([['', '', ''], ['', '', ''], ['', '', '']])
     setMovesCounter(0)
+    setPlayerWon(false)
+    setCurrentPlayer('X')
+    setPlayerMMoves([])
+    setPlayerXMoves([])
   }
 
   return (
@@ -37,7 +48,15 @@ export default function App() {
         MScore={MScore} 
         setMScore={setMScore} 
         tieScore={tieScore} 
-        setTieScore={setTieScore} 
+        setTieScore={setTieScore}
+        playerWon={playerWon}
+        setPlayerWon={setPlayerWon}
+        currentPlayer={currentPlayer}
+        setCurrentPlayer={setCurrentPlayer}
+        playerXMoves={playerXMoves}
+        playerMMoves={playerMMoves}
+        setPlayerXMoves={setPlayerXMoves}
+        setPlayerMMoves={setPlayerMMoves}
       />
       <ResetButton pressRestartGame={pressRestartGame} />
     </View>
