@@ -25,6 +25,7 @@ export default function Header({ XScore, MScore, tieScore }) {
 const textStyle = StyleSheet.create({
     container: {
         fontSize: 30,
-        fontStyle: 'italic'
+        fontStyle: 'italic',
+        color: 'white'
     }
 })

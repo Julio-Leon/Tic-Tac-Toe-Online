@@ -5,6 +5,8 @@ export default function Table({ block, i, j, makeMove, playerWon, makingMove, se
 
     const pos = [i, j]
 
+    const LINE_COLOR = 'white'
+
     let styler = {
         flex: 1,
         height: '100%',
@@ -18,8 +20,8 @@ export default function Table({ block, i, j, makeMove, playerWon, makingMove, se
         styler.borderBottomWidth = 2
         styler.borderRightStyle = 'solid'
         styler.borderBottomStyle = 'solid'
-        styler.borderRightColor = 'black'
-        styler.borderBottomColor = 'black'
+        styler.borderRightColor = LINE_COLOR
+        styler.borderBottomColor = LINE_COLOR
     } else if (pos[0] === 0 && pos[1] === 1) {
         styler.borderLeftWidth = 2
         styler.borderRightWidth = 2
@@ -27,16 +29,16 @@ export default function Table({ block, i, j, makeMove, playerWon, makingMove, se
         styler.borderLeftStyle = 'solid'
         styler.borderRightStyle = 'solid'
         styler.borderBottomStyle = 'solid'
-        styler.borderLeftColor = 'black'
-        styler.borderRightColor = 'black'
-        styler.borderBottomColor = 'black'
+        styler.borderLeftColor = LINE_COLOR
+        styler.borderRightColor = LINE_COLOR
+        styler.borderBottomColor = LINE_COLOR
     } else if (pos[0] === 0 && pos[1] === 2) {
         styler.borderLeftWidth = 2
         styler.borderBottomWidth = 2
         styler.borderLeftStyle = 'solid'
         styler.borderBottomStyle = 'solid'
-        styler.borderLeftColor = 'black'
-        styler.borderBottomColor = 'black'
+        styler.borderLeftColor = LINE_COLOR
+        styler.borderBottomColor = LINE_COLOR
 
     // Middle Row 
     } else if (pos[0] === 1 && pos[1] === 0) {
@@ -46,13 +48,13 @@ export default function Table({ block, i, j, makeMove, playerWon, makingMove, se
         styler.borderTopStyle = 'solid'
         styler.borderRightStyle = 'solid'
         styler.borderBottomStyle = 'solid'
-        styler.borderTopColor = 'black'
-        styler.borderRightColor = 'black'
-        styler.borderBottomColor = 'black'
+        styler.borderTopColor = LINE_COLOR
+        styler.borderRightColor = LINE_COLOR
+        styler.borderBottomColor = LINE_COLOR
     } else if (pos[0] === 1 && pos[1] === 1) {
         styler.borderWidth = 2
         styler.borderStyle = 'solid'
-        styler.borderColor = 'black'
+        styler.borderColor = LINE_COLOR
     } else if (pos[0] === 1 && pos[1] === 2) {
         styler.borderTopWidth = 2
         styler.borderLeftWidth = 2
@@ -60,9 +62,9 @@ export default function Table({ block, i, j, makeMove, playerWon, makingMove, se
         styler.borderTopStyle = 'solid'
         styler.borderLeftStyle = 'solid'
         styler.borderBottomStyle = 'solid'
-        styler.borderTopColor = 'black'
-        styler.borderLeftColor = 'black'
-        styler.borderBottomColor = 'black'
+        styler.borderTopColor = LINE_COLOR
+        styler.borderLeftColor = LINE_COLOR
+        styler.borderBottomColor = LINE_COLOR
 
     // Bottom Row
     } else if (pos[0] === 2 && pos[1] === 0) {
@@ -70,8 +72,8 @@ export default function Table({ block, i, j, makeMove, playerWon, makingMove, se
         styler.borderTopWidth = 2
         styler.borderRightStyle = 'solid'
         styler.borderTopStyle = 'solid'
-        styler.borderRightColor = 'black'
-        styler.borderTopColor = 'black'
+        styler.borderRightColor = LINE_COLOR
+        styler.borderTopColor = LINE_COLOR
     } else if (pos[0] === 2 && pos[1] === 1) {
         styler.borderTopWidth = 2
         styler.borderRightWidth = 2
@@ -79,16 +81,16 @@ export default function Table({ block, i, j, makeMove, playerWon, makingMove, se
         styler.borderTopStyle = 'solid'
         styler.borderRightStyle = 'solid'
         styler.borderLeftStyle = 'solid'
-        styler.borderTopColor = 'black'
-        styler.borderRightColor = 'black'
-        styler.borderLeftColor = 'black'
+        styler.borderTopColor = LINE_COLOR
+        styler.borderRightColor = LINE_COLOR
+        styler.borderLeftColor = LINE_COLOR
     } else if (pos[0] === 2 && pos[1] === 2) {
         styler.borderLeftWidth = 2
         styler.borderTopWidth = 2
         styler.borderLeftStyle = 'solid'
         styler.borderTopStyle = 'solid'
-        styler.borderLeftColor = 'black'
-        styler.borderTopColor = 'black'
+        styler.borderLeftColor = LINE_COLOR
+        styler.borderTopColor = LINE_COLOR
     } 
 
     return (
@@ -100,7 +102,8 @@ export default function Table({ block, i, j, makeMove, playerWon, makingMove, se
         >
             <Text
                 style={{
-                    fontSize: 50
+                    fontSize: 50,
+                    color: 'white'
                 }}
             >
                 {block}

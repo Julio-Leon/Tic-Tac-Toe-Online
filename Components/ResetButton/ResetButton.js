@@ -15,13 +15,15 @@ export default function ResetButton({ pressRestartGame }) {
             justifyContent: 'center',
             alignItems: 'center',
             borderStyle: 'solid',
-            borderColor: 'black',
+            borderColor: 'white',
             borderWidth: 5,
-            borderRadius: 10
+            borderRadius: 10,
         }}
         onPress={pressRestartGame}
         >
-            <Text>Restart Game</Text>
+            <Text style={{
+                color: 'white'
+            }}>Restart Game</Text>
         </TouchableOpacity>
     )
 }
