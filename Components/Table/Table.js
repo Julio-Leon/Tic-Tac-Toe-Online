@@ -24,7 +24,6 @@ export default function Table({
   setPlayerXMoves, 
   playerMMoves, 
   setPlayerMMoves, 
-  setPlayerWonOpacity, 
   setWinnerTag, 
   setWinModalVisible,
   setTieModalVisible
@@ -47,21 +46,27 @@ export default function Table({
 
   const changePlayer = () => currentPlayer === 'X' ? setCurrentPlayer('M') : setCurrentPlayer('X')
 
+  const [wonState, setWonState] = useState(false)
+
   const showTieMessage = () => {
+    setWonState(true)
     setTieModalVisible(true)
     setTimeout(() => {
       setTieModalVisible(false)
       pressRestartGame()
+      setWonState(false)
     }, 3000)
   }
   
   const showWinMessage = (winner) => {
+    setWonState(true)
     setWinnerTag(winner)
     setWinModalVisible(true)
     setTimeout(() => {
       setWinModalVisible(false)
       incrementCounter(winner)
       pressRestartGame()
+      setWonState(false)
     }, 3000)
   }
 
@@ -87,7 +92,7 @@ export default function Table({
   }
 
   const makeMove = (block, i, j) => {
-    if (block !== '') return
+    if (block !== '' || wonState) return
 
     let winnerFound = false
 
@@ -126,7 +131,7 @@ export default function Table({
     <View style={{ 
       flex: 0.5,
       width: '90%',
-      backgroundColor: playerWon==='X' ? 'blue' : playerWon==='M' ? 'green' : 'black',
+      backgroundColor: 'black',
     }}>
 
     {
@@ -148,5 +153,3 @@ export default function Table({
     </View>
   );
 }
-
-// IMPLEMENT TIE LOGIC

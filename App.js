@@ -25,9 +25,6 @@ export default function App() {
   const [playerXMoves, setPlayerXMoves] = useState([])
   const [playerMMoves, setPlayerMMoves] = useState([])
 
-  const [playerWonOpacity, setPlayerWonOpacity] = useState('0')
-  // const [tieOpacity, setTieOpacity] = useState('0%')
-
   const [winnerTag, setWinnerTag] = useState('')
 
   const pressRestartGame = () => {
@@ -41,31 +38,20 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+
+      <Text style={{
+          flex: 0.17,
+          color: 'white',
+          fontSize: 50
+        }}>
+        Tic Tac Toe
+      </Text>
+
       <Header 
         XScore={XScore} 
         MScore={MScore} 
         tieScore={tieScore} 
       />
-
-      {/* <View style={{
-        flex: 0.125,
-        opacity: tieOpacity
-      }}>
-        <Text style={{
-                  color: 'white',
-                  fontSize: 20
-                }}>Tie!!!</Text>
-      </View> */}
-
-      {/* <View style={{
-        flex: playerWonOpacity,
-        // opacity: playerWonOpacity
-      }}>
-        <Text style={{
-                  color: 'white',
-                  fontSize: 20
-                }}>PLAYER {winnerTag} WON !!!</Text>
-      </View> */}
 
       <Modal
         animationType="slide"
@@ -73,12 +59,26 @@ export default function App() {
         visible={tieModalVisible}
       >
         <View style={{
-        flex: 1,
+          marginTop: '20%',
+          marginRight: '10%',
+          marginLeft: '10%',
+          backgroundColor: "#353C51",
+          borderRadius: 20,
+          padding: 35,
+          alignItems: "center",
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 4,
+          elevation: 5
         }}>
           <Text style={{
-                  color: 'white',
-                  fontSize: 50
-                }}>Tie!!!</Text>
+            color: 'white',
+            fontSize: 50
+          }}>Tie!!!</Text>
         </View>
       </Modal>
 
@@ -88,12 +88,26 @@ export default function App() {
         visible={winModalVisible}
       >
         <View style={{
-        flex: 1,
+          marginTop: '20%',
+          marginRight: '10%',
+          marginLeft: '10%',
+          backgroundColor: "#353C51",
+          borderRadius: 20,
+          padding: 35,
+          alignItems: "center",
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 4,
+          elevation: 5
         }}>
           <Text style={{
-                  color: 'white',
-                  fontSize: 50
-                }}>PLAYER {winnerTag} WON !!!</Text>
+            color: 'white',
+            fontSize: 50
+          }}>PLAYER {winnerTag} WON !!!</Text>
         </View>
       </Modal>
 
@@ -117,7 +131,6 @@ export default function App() {
         playerMMoves={playerMMoves}
         setPlayerXMoves={setPlayerXMoves}
         setPlayerMMoves={setPlayerMMoves}
-        setPlayerWonOpacity={setPlayerWonOpacity}
         setWinnerTag={setWinnerTag}
         setWinModalVisible={setWinModalVisible}
         setTieModalVisible={setTieModalVisible}
