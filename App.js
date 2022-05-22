@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Modal } from 'react-native';
 import Table from './Components/Table/Table';
 import Header from './Components/Header/Header'
 import ResetButton from './Components/ResetButton/ResetButton'
+import NativeModal from './Components/Modal/Modal';
 
 export default function App() {
 
   const [table, setTable] = useState([['', '', ''], ['', '', ''], ['', '', '']])
+
+  const [winModalVisible, setWinModalVisible] = useState(false)
+  const [tieModalVisible, setTieModalVisible] = useState(false)
 
   const [XScore, setXScore] = useState(0)
   const [MScore, setMScore] = useState(0)
@@ -21,7 +25,8 @@ export default function App() {
   const [playerXMoves, setPlayerXMoves] = useState([])
   const [playerMMoves, setPlayerMMoves] = useState([])
 
-  const [playerWonOpacity, setPlayerWonOpacity] = useState('0%')
+  const [playerWonOpacity, setPlayerWonOpacity] = useState('0')
+  // const [tieOpacity, setTieOpacity] = useState('0%')
 
   const [winnerTag, setWinnerTag] = useState('')
 
@@ -42,15 +47,55 @@ export default function App() {
         tieScore={tieScore} 
       />
 
-      <View style={{
+      {/* <View style={{
         flex: 0.125,
-        opacity: playerWonOpacity
+        opacity: tieOpacity
+      }}>
+        <Text style={{
+                  color: 'white',
+                  fontSize: 20
+                }}>Tie!!!</Text>
+      </View> */}
+
+      {/* <View style={{
+        flex: playerWonOpacity,
+        // opacity: playerWonOpacity
       }}>
         <Text style={{
                   color: 'white',
                   fontSize: 20
                 }}>PLAYER {winnerTag} WON !!!</Text>
-      </View>
+      </View> */}
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={tieModalVisible}
+      >
+        <View style={{
+        flex: 1,
+        }}>
+          <Text style={{
+                  color: 'white',
+                  fontSize: 50
+                }}>Tie!!!</Text>
+        </View>
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={winModalVisible}
+      >
+        <View style={{
+        flex: 1,
+        }}>
+          <Text style={{
+                  color: 'white',
+                  fontSize: 50
+                }}>PLAYER {winnerTag} WON !!!</Text>
+        </View>
+      </Modal>
 
       <Table 
         movesCounter={movesCounter} 
@@ -74,6 +119,8 @@ export default function App() {
         setPlayerMMoves={setPlayerMMoves}
         setPlayerWonOpacity={setPlayerWonOpacity}
         setWinnerTag={setWinnerTag}
+        setWinModalVisible={setWinModalVisible}
+        setTieModalVisible={setTieModalVisible}
       />
       <ResetButton pressRestartGame={pressRestartGame} />
     </View>
@@ -94,8 +141,3 @@ const styles = StyleSheet.create({
 
 // LOADING MULTIPLE STYLES AS OBJECTS FOR CSS 
 // DARK THEME SWITCH BUTTON
-
-// FIX WINNING COMBINATION BUG ON 
-  // ROW 1 FIRST SQUARE
-  // ROW 2 SECOND SQUARE
-  // ROW 3 FIRST SQUARE
