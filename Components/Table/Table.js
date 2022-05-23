@@ -26,7 +26,8 @@ export default function Table({
   setPlayerMMoves, 
   setWinnerTag, 
   setWinModalVisible,
-  setTieModalVisible
+  setTieModalVisible,
+  gameMode
  }) {
 
   const [makingMove, setMakingMove] = useState(false)
@@ -92,8 +93,54 @@ export default function Table({
     return passed
   }
 
-  const makeMoveComputer = (block, i, j) => {
-    console.log(playerXMoves)
+  const makeMoveComputer = (xMoves, xMove) => {
+
+    let winnerFound = false
+    let move = false
+
+
+    // Finding move
+    let moveFound = false
+    let counter = 0
+    while (!moveFound || counter > 25) {
+      const tempMove = [Math.floor(Math.random() * 3), Math.floor(Math.random() * 3)]
+      if (!checkIfInPlayerArray(tempMove, xMoves) && !checkIfInPlayerArray(tempMove, playerMMoves)) {
+        moveFound = true
+        move = [...tempMove]
+        console.log('AQUI', tempMove)
+      } else {
+        counter += 1
+      }
+    }
+
+    //Making move 
+    setMovesCounter(movesCounter + 1)
+
+    const newTable = table.map((newRow, ii) => {
+      return newRow.map((newBlock, jj) => {
+          if (move[0] === ii && move[1] === jj) {
+            return 'M'
+          } else if (xMove[0] === ii && xMove[1] === jj) {
+            return 'X'
+          } else {
+            return newBlock
+          }
+      })
+    })
+
+    setTable(newTable)
+
+    if (checkForWin([...playerMMoves, [move[0], move[1]]])) {
+      setPlayerWon('M')
+      showWinMessage('M')
+      winnerFound = true
+    }
+    setPlayerMMoves([...playerMMoves, [move[0], move[1]]])
+
+    if (movesCounter > 7 && !winnerFound) {
+      showTieMessage()
+    }
+
   }
 
   const makeMove = (block, i, j) => {
@@ -110,7 +157,7 @@ export default function Table({
     })
 
     if (gameMode === 2) {
-      makeMoveComputer()
+      makeMoveComputer([...playerXMoves, [i, j]], [i, j])
     }
 
     if (currentPlayer === 'X') {
@@ -121,16 +168,20 @@ export default function Table({
       }
       setPlayerXMoves([...playerXMoves, [i, j]])
     } else {
-        if (checkForWin([...playerMMoves, [i, j]])) {
-          setPlayerWon('M')
-          showWinMessage('M')
-          winnerFound = true
+        if (gameMode === 1) {
+          if (checkForWin([...playerMMoves, [i, j]])) {
+            setPlayerWon('M')
+            showWinMessage('M')
+            winnerFound = true
+          }
+          setPlayerMMoves([...playerMMoves, [i, j]])
         }
-        setPlayerMMoves([...playerMMoves, [i, j]])
     }
 
-    setTable(newTable)
-    changePlayer() 
+    if (gameMode === 1) {
+      changePlayer() 
+    }
+
     if (movesCounter > 7 && !winnerFound) {
       showTieMessage()
     }
@@ -162,3 +213,4 @@ export default function Table({
     </View>
   );
 }
+

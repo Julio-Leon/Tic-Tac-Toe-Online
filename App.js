@@ -37,13 +37,17 @@ export default function App() {
     setPlayerXMoves([])
   }
 
+  const setGameModeToPersonVsPerson = () => {
+    setGameMode(1)
+  }
+
   if (!gameMode) {
     return (
-      <View>
+      <View style={styles.container}>
         <Text style={{
           flex: 0.17,
           color: 'white',
-          fontSize: 50
+          fontSize: 60
         }}>
           Tic Tac Toe
         </Text>
@@ -57,42 +61,42 @@ export default function App() {
         </Text>
 
         <TouchableOpacity style={{
-            flex: 0.05,
-            height: '10%',
-            width: '30%',
-            marginTop: 30,
-            marginBottom: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderStyle: 'solid',
-            borderColor: 'white',
-            borderWidth: 5,
-            borderRadius: 10,
+          flex: 0.05,
+          height: '10%',
+          width: '30%',
+          marginTop: 30,
+          marginBottom: 30,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderStyle: 'solid',
+          borderColor: 'white',
+          borderWidth: 5,
+          borderRadius: 10,
         }}
-        onPress={setGameMode(1)}
+        onPress={setGameModeToPersonVsPerson}
         >
             <Text style={{
-                color: 'white'
+              color: 'white'
             }}>Person vs Person</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={{
-            flex: 0.05,
-            height: '10%',
-            width: '30%',
-            marginTop: 30,
-            marginBottom: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderStyle: 'solid',
-            borderColor: 'white',
-            borderWidth: 5,
-            borderRadius: 10,
+          flex: 0.05,
+          height: '10%',
+          width: '30%',
+          marginTop: 30,
+          marginBottom: 30,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderStyle: 'solid',
+          borderColor: 'white',
+          borderWidth: 5,
+          borderRadius: 10,
         }}
-        onPress={setGameMode(2)}
+        onPress={() => setGameMode(2)}
         >
             <Text style={{
-                color: 'white'
+              color: 'white'
             }}>Person vs Computer</Text>
         </TouchableOpacity>
 
@@ -100,9 +104,8 @@ export default function App() {
     )
   } else {
     return (
-
       <View style={styles.container}>
-  
+
         <Text style={{
             flex: 0.17,
             color: 'white',
@@ -110,13 +113,13 @@ export default function App() {
           }}>
           Tic Tac Toe
         </Text>
-  
+
         <Header 
           XScore={XScore} 
           MScore={MScore} 
           tieScore={tieScore} 
         />
-  
+
         <Modal
           animationType="slide"
           transparent={true}
@@ -145,7 +148,7 @@ export default function App() {
             }}>Tie!!!</Text>
           </View>
         </Modal>
-  
+
         <Modal
           animationType="slide"
           transparent={true}
@@ -174,7 +177,7 @@ export default function App() {
             }}>PLAYER {winnerTag} WON !!!</Text>
           </View>
         </Modal>
-  
+
         <Table 
           movesCounter={movesCounter} 
           setMovesCounter={setMovesCounter} 
@@ -205,18 +208,15 @@ export default function App() {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'black',
+  
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'black',
   },
 });
 
-
-// LOADING MULTIPLE STYLES AS OBJECTS FOR CSS 
-// DARK THEME SWITCH BUTTON
