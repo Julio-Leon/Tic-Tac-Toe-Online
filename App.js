@@ -3,9 +3,10 @@ import { StyleSheet, View, Text, Modal } from 'react-native';
 import Table from './Components/Table/Table';
 import Header from './Components/Header/Header'
 import ResetButton from './Components/ResetButton/ResetButton'
-import NativeModal from './Components/Modal/Modal';
 
 export default function App() {
+
+  const [gameMode, setGameMode] = useState(false)
 
   const [table, setTable] = useState([['', '', ''], ['', '', ''], ['', '', '']])
 
@@ -36,7 +37,71 @@ export default function App() {
     setPlayerXMoves([])
   }
 
+  if (!gameMode) {
+    return (
+      <View>
+        <Text style={{
+          flex: 0.17,
+          color: 'white',
+          fontSize: 50
+        }}>
+          Tic Tac Toe
+        </Text>
+
+        <Text style={{
+          flex: 0.17,
+          color: 'white',
+          fontSize: 30
+        }}>
+          Choose Your Fate.
+        </Text>
+
+        <TouchableOpacity style={{
+            flex: 0.05,
+            height: '10%',
+            width: '30%',
+            marginTop: 30,
+            marginBottom: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderStyle: 'solid',
+            borderColor: 'white',
+            borderWidth: 5,
+            borderRadius: 10,
+        }}
+        onPress={setGameMode(1)}
+        >
+            <Text style={{
+                color: 'white'
+            }}>Person vs Person</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={{
+            flex: 0.05,
+            height: '10%',
+            width: '30%',
+            marginTop: 30,
+            marginBottom: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderStyle: 'solid',
+            borderColor: 'white',
+            borderWidth: 5,
+            borderRadius: 10,
+        }}
+        onPress={setGameMode(2)}
+        >
+            <Text style={{
+                color: 'white'
+            }}>Person vs Computer</Text>
+        </TouchableOpacity>
+
+      </View>
+    )
+  }
+
   return (
+
     <View style={styles.container}>
 
       <Text style={{
@@ -134,6 +199,7 @@ export default function App() {
         setWinnerTag={setWinnerTag}
         setWinModalVisible={setWinModalVisible}
         setTieModalVisible={setTieModalVisible}
+        gameMode={gameMode}
       />
       <ResetButton pressRestartGame={pressRestartGame} />
     </View>
