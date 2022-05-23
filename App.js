@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Modal } from 'react-native';
+import { StyleSheet, View, Text, Modal, TouchableOpacity } from 'react-native';
 import Table from './Components/Table/Table';
 import Header from './Components/Header/Header'
 import ResetButton from './Components/ResetButton/ResetButton'
-import NativeModal from './Components/Modal/Modal';
 
 export default function App() {
+
+  const [gameMode, setGameMode] = useState(false)
 
   const [table, setTable] = useState([['', '', ''], ['', '', ''], ['', '', '']])
 
@@ -36,108 +37,173 @@ export default function App() {
     setPlayerXMoves([])
   }
 
-  return (
-    <View style={styles.container}>
-
-      <Text style={{
+  if (!gameMode) {
+    return (
+      <View>
+        <Text style={{
           flex: 0.17,
           color: 'white',
           fontSize: 50
         }}>
-        Tic Tac Toe
-      </Text>
+          Tic Tac Toe
+        </Text>
 
-      <Header 
-        XScore={XScore} 
-        MScore={MScore} 
-        tieScore={tieScore} 
-      />
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={tieModalVisible}
-      >
-        <View style={{
-          marginTop: '20%',
-          marginRight: '10%',
-          marginLeft: '10%',
-          backgroundColor: "#353C51",
-          borderRadius: 20,
-          padding: 35,
-          alignItems: "center",
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 4,
-          elevation: 5
+        <Text style={{
+          flex: 0.17,
+          color: 'white',
+          fontSize: 30
         }}>
-          <Text style={{
+          Choose Your Fate.
+        </Text>
+
+        <TouchableOpacity style={{
+            flex: 0.05,
+            height: '10%',
+            width: '30%',
+            marginTop: 30,
+            marginBottom: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderStyle: 'solid',
+            borderColor: 'white',
+            borderWidth: 5,
+            borderRadius: 10,
+        }}
+        onPress={setGameMode(1)}
+        >
+            <Text style={{
+                color: 'white'
+            }}>Person vs Person</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={{
+            flex: 0.05,
+            height: '10%',
+            width: '30%',
+            marginTop: 30,
+            marginBottom: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderStyle: 'solid',
+            borderColor: 'white',
+            borderWidth: 5,
+            borderRadius: 10,
+        }}
+        onPress={setGameMode(2)}
+        >
+            <Text style={{
+                color: 'white'
+            }}>Person vs Computer</Text>
+        </TouchableOpacity>
+
+      </View>
+    )
+  } else {
+    return (
+
+      <View style={styles.container}>
+  
+        <Text style={{
+            flex: 0.17,
             color: 'white',
             fontSize: 50
-          }}>Tie!!!</Text>
-        </View>
-      </Modal>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={winModalVisible}
-      >
-        <View style={{
-          marginTop: '20%',
-          marginRight: '10%',
-          marginLeft: '10%',
-          backgroundColor: "#353C51",
-          borderRadius: 20,
-          padding: 35,
-          alignItems: "center",
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 4,
-          elevation: 5
-        }}>
-          <Text style={{
-            color: 'white',
-            fontSize: 50
-          }}>PLAYER {winnerTag} WON !!!</Text>
-        </View>
-      </Modal>
-
-      <Table 
-        movesCounter={movesCounter} 
-        setMovesCounter={setMovesCounter} 
-        table={table} 
-        setTable={setTable} 
-        pressRestartGame={pressRestartGame} 
-        XScore={XScore} 
-        setXScore={setXScore} 
-        MScore={MScore} 
-        setMScore={setMScore} 
-        tieScore={tieScore} 
-        setTieScore={setTieScore}
-        playerWon={playerWon}
-        setPlayerWon={setPlayerWon}
-        currentPlayer={currentPlayer}
-        setCurrentPlayer={setCurrentPlayer}
-        playerXMoves={playerXMoves}
-        playerMMoves={playerMMoves}
-        setPlayerXMoves={setPlayerXMoves}
-        setPlayerMMoves={setPlayerMMoves}
-        setWinnerTag={setWinnerTag}
-        setWinModalVisible={setWinModalVisible}
-        setTieModalVisible={setTieModalVisible}
-      />
-      <ResetButton pressRestartGame={pressRestartGame} />
-    </View>
-  );
+          }}>
+          Tic Tac Toe
+        </Text>
+  
+        <Header 
+          XScore={XScore} 
+          MScore={MScore} 
+          tieScore={tieScore} 
+        />
+  
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={tieModalVisible}
+        >
+          <View style={{
+            marginTop: '20%',
+            marginRight: '10%',
+            marginLeft: '10%',
+            backgroundColor: "#353C51",
+            borderRadius: 20,
+            padding: 35,
+            alignItems: "center",
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+            elevation: 5
+          }}>
+            <Text style={{
+              color: 'white',
+              fontSize: 50
+            }}>Tie!!!</Text>
+          </View>
+        </Modal>
+  
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={winModalVisible}
+        >
+          <View style={{
+            marginTop: '20%',
+            marginRight: '10%',
+            marginLeft: '10%',
+            backgroundColor: "#353C51",
+            borderRadius: 20,
+            padding: 35,
+            alignItems: "center",
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+            elevation: 5
+          }}>
+            <Text style={{
+              color: 'white',
+              fontSize: 50
+            }}>PLAYER {winnerTag} WON !!!</Text>
+          </View>
+        </Modal>
+  
+        <Table 
+          movesCounter={movesCounter} 
+          setMovesCounter={setMovesCounter} 
+          table={table} 
+          setTable={setTable} 
+          pressRestartGame={pressRestartGame} 
+          XScore={XScore} 
+          setXScore={setXScore} 
+          MScore={MScore} 
+          setMScore={setMScore} 
+          tieScore={tieScore} 
+          setTieScore={setTieScore}
+          playerWon={playerWon}
+          setPlayerWon={setPlayerWon}
+          currentPlayer={currentPlayer}
+          setCurrentPlayer={setCurrentPlayer}
+          playerXMoves={playerXMoves}
+          playerMMoves={playerMMoves}
+          setPlayerXMoves={setPlayerXMoves}
+          setPlayerMMoves={setPlayerMMoves}
+          setWinnerTag={setWinnerTag}
+          setWinModalVisible={setWinModalVisible}
+          setTieModalVisible={setTieModalVisible}
+          gameMode={gameMode}
+        />
+        <ResetButton pressRestartGame={pressRestartGame} />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
