@@ -49,6 +49,7 @@ export default function Table({
   const [wonState, setWonState] = useState(false)
 
   const showTieMessage = () => {
+    setTieScore(tieScore + 1)
     setWonState(true)
     setTieModalVisible(true)
     setTimeout(() => {
