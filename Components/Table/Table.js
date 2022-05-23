@@ -92,6 +92,10 @@ export default function Table({
     return passed
   }
 
+  const makeMoveComputer = (block, i, j) => {
+    console.log(playerXMoves)
+  }
+
   const makeMove = (block, i, j) => {
     if (block !== '' || wonState) return
 
@@ -104,6 +108,10 @@ export default function Table({
             return i === ii && j === jj ? currentPlayer : newBlock
         })
     })
+
+    if (gameMode === 2) {
+      makeMoveComputer()
+    }
 
     if (currentPlayer === 'X') {
       if (checkForWin([...playerXMoves, [i, j]])) {
