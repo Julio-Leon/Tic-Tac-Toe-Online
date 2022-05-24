@@ -41,6 +41,10 @@ export default function App() {
     setGameMode(1)
   }
 
+  const unsetGameMode = () => {
+    setGameMode(false)
+  }
+
   if (!gameMode) {
     return (
       <View style={styles.container}>
@@ -203,7 +207,7 @@ export default function App() {
           setTieModalVisible={setTieModalVisible}
           gameMode={gameMode}
         />
-        <ResetButton pressRestartGame={pressRestartGame} />
+        <ResetButton unsetGameMode={unsetGameMode} />
       </View>
     );
   }

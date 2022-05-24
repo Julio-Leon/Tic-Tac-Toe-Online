@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-export default function ResetButton({ pressRestartGame }) {
+export default function ResetButton({ unsetGameMode }) {
 
     
 
@@ -19,11 +19,11 @@ export default function ResetButton({ pressRestartGame }) {
             borderWidth: 5,
             borderRadius: 10,
         }}
-        onPress={pressRestartGame}
+        onPress={unsetGameMode}
         >
             <Text style={{
                 color: 'white'
-            }}>Restart Game</Text>
+            }}>Gamble your odds again</Text>
         </TouchableOpacity>
     )
 }

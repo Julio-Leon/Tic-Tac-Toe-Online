@@ -95,6 +95,9 @@ export default function Table({
 
   const makeMoveComputer = (xMoves, xMove) => {
 
+    // if (movesCounter === 4) return
+    console.log(movesCounter)
+
     let winnerFound = false
     let move = false
 
@@ -102,12 +105,13 @@ export default function Table({
     // Finding move
     let moveFound = false
     let counter = 0
-    while (!moveFound || counter > 25) {
+    while ((!moveFound || counter < 25) && movesCounter < 4) {
       const tempMove = [Math.floor(Math.random() * 3), Math.floor(Math.random() * 3)]
       if (!checkIfInPlayerArray(tempMove, xMoves) && !checkIfInPlayerArray(tempMove, playerMMoves)) {
         moveFound = true
         move = [...tempMove]
-        console.log('AQUI', tempMove)
+        setMovesCounter(movesCounter + 1)
+        // console.log('AQUI', tempMove)
       } else {
         counter += 1
       }
@@ -118,7 +122,7 @@ export default function Table({
 
     const newTable = table.map((newRow, ii) => {
       return newRow.map((newBlock, jj) => {
-          if (move[0] === ii && move[1] === jj) {
+          if ((move[0] === ii && move[1] === jj) && movesCounter < 4) {
             return 'M'
           } else if (xMove[0] === ii && xMove[1] === jj) {
             return 'X'
@@ -137,10 +141,6 @@ export default function Table({
     }
     setPlayerMMoves([...playerMMoves, [move[0], move[1]]])
 
-    if (movesCounter > 7 && !winnerFound) {
-      showTieMessage()
-    }
-
   }
 
   const makeMove = (block, i, j) => {
@@ -158,6 +158,8 @@ export default function Table({
 
     if (gameMode === 2) {
       makeMoveComputer([...playerXMoves, [i, j]], [i, j])
+    } else {
+      setTable(newTable)
     }
 
     if (currentPlayer === 'X') {
@@ -182,9 +184,11 @@ export default function Table({
       changePlayer() 
     }
 
-    if (movesCounter > 7 && !winnerFound) {
+    if (movesCounter > (gameMode === 1 ? 7 : 3) && !winnerFound) {
       showTieMessage()
     }
+
+    // console.log(table)
 }
 
   return (
