@@ -23,7 +23,7 @@ export default function ResetButton({ unsetGameMode }) {
         >
             <Text style={{
                 color: 'white'
-            }}>Gamble your odds again</Text>
+            }}>Gamble</Text>
         </TouchableOpacity>
     )
 }

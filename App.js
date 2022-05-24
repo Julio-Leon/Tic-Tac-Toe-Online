@@ -37,12 +37,20 @@ export default function App() {
     setPlayerXMoves([])
   }
 
+  const resetScores = () => {
+    setXScore(0)
+    setMScore(0)
+    setTieScore(0)
+  }
+
   const setGameModeToPersonVsPerson = () => {
     setGameMode(1)
   }
 
   const unsetGameMode = () => {
     setGameMode(false)
+    pressRestartGame()
+    resetScores()
   }
 
   if (!gameMode) {
@@ -101,7 +109,7 @@ export default function App() {
         >
             <Text style={{
               color: 'white'
-            }}>Person vs Computer</Text>
+            }}>Person vs AI</Text>
         </TouchableOpacity>
 
       </View>
